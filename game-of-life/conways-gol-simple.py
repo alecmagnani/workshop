@@ -3,6 +3,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
+interpolation_methods = [None, 'none', 'nearest', 'bilinear', 'bicubic', 'spline16', 
+                         'spline36', 'hanning', 'hamming', 'hermite', 'kaiser', 'quadric', 
+                         'catrom', 'gaussian', 'bessel', 'mitchell', 'sinc', 'lanczos']
+
 ON = 255
 OFF = 0
 
@@ -37,6 +41,7 @@ def main():
     parser = argparse.ArgumentParser("Conway's Game of Life simulation.")
     parser.add_argument('--grid-size', dest='N', required=False)
     parser.add_argument('--interval', dest='interval', required=False)
+    parser.add_argument('--method', dest='method', required=False)
     args = parser.parse_args()
 
     # Set grid size
@@ -49,12 +54,19 @@ def main():
     if args.interval:
         updateInterval = int(args.interval)
 
+    method = interpolation_methods[2]
+    if args.method:
+        if (args.method in interpolation_methods):
+            method = args.method
+        elif (args.method.casefold() == 'random'.casefold()) or (args.method.casefold() == 'rand'.casefold()):
+            method = interpolation_methods[np.random.randint(0, len(interpolation_methods) - 1)]
+
     # Init grid
     grid = randomGrid(N)
 
     # Start animation
     fig, ax = plt.subplots()
-    img = ax.imshow(grid, interpolation='nearest')
+    img = ax.imshow(grid, interpolation=method)
     ani = animation.FuncAnimation(fig, update, fargs=(img, grid, N, ),
                                   frames=10,
                                   interval=updateInterval)
