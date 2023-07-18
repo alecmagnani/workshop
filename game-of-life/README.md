@@ -2,8 +2,6 @@
 
 [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) is a cellular automaton simulator. It is a 'zero-player game', meaning its evolution is determined by its initial state, requiring no further input.
 
-![Screenshot](./game-of-life-screenshot.png)
-
 ## Rules
 The Game of Life takes place in a 2-dimensional grid "universe" of square cells. Each cell exists in a state: `live` or `dead`. Cells interact with their neighbors, any cell that is adjacent. For each step of the simulation, the following rules are applied:
 
@@ -20,9 +18,14 @@ The Game of Life takes place in a 2-dimensional grid "universe" of square cells.
 3. argparse
 4. pygame
 
+### Installation
 ```
 git clone https://github.com/alecmagnani/workshop.git
 cd workshop/game-of-life
+
 pip install numpy matplotlib argparse pygame
+
 python conways-gol-simple.py [--grid-size 100] [--interval 50]
 ```
+
+![Screenshot](./game-of-life-screenshot.png)
